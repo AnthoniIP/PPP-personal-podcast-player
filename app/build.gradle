@@ -63,7 +63,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha02"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
