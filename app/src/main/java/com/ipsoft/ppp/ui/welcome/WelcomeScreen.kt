@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.ipsoft.ppp.ui.common.PreviewContent
 import com.ipsoft.ppp.ui.navigation.Destination
 import com.ipsoft.ppp.ui.navigation.Navigator
+import com.ipsoft.ppp.ui.welcome.AnimatedTitle
 
 @Composable
 fun WelcomeScreen() {

@@ -1,6 +1,6 @@
 package com.ipsoft.ppp.data.network.client
 
-import com.fabirt.ppp.BuildConfig
+import com.ipsoft.ppp.BuildConfig
 import com.ipsoft.ppp.data.network.constant.ListenNotesAPI
 import com.ipsoft.ppp.data.network.service.PodcastService
 import okhttp3.Interceptor

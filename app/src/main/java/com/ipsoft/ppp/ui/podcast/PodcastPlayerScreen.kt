@@ -34,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil.request.ImageRequest
-import com.fabirt.podcastapp.R
 import com.ipsoft.ppp.domain.model.Episode
 import com.ipsoft.ppp.domain.model.Podcast
 import com.ipsoft.ppp.ui.common.EmphasisText
@@ -43,6 +42,7 @@ import com.ipsoft.ppp.ui.common.PreviewContent
 import com.ipsoft.ppp.ui.common.ViewModelProvider
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.insets.systemBarsPadding
+import com.ipsoft.ppp.R
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalAnimationApi::class)

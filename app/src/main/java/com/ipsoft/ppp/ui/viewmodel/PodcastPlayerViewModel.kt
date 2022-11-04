@@ -32,7 +32,7 @@ class PodcastPlayerViewModel @Inject constructor(
 
     var showPlayerFullScreen by mutableStateOf(false)
 
-    var currentPlaybackPosition by mutableStateOf(0L)
+    private var currentPlaybackPosition by mutableStateOf(0L)
 
     val podcastIsPlaying: Boolean
         get() = playbackState.value?.isPlaying == true

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.fabirt.podcastapp.R
+import com.ipsoft.ppp.R
 import com.ipsoft.ppp.domain.model.Episode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PodcastDetailViewModel @Inject constructor() : ViewModel() {
 
-    fun sharePodcastEpidose(context: Context, episode: Episode) {
+    fun sharePodcastEpisode(context: Context, episode: Episode) {
         val text = context.getString(
             R.string.share_podcast_content,
             episode.titleOriginal,

@@ -1,4 +1,4 @@
-package com.fabirt.ppp.ui.welcome
+package com.ipsoft.ppp.ui.welcome
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import com.fabirt.ppp.R
+import com.ipsoft.ppp.R
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

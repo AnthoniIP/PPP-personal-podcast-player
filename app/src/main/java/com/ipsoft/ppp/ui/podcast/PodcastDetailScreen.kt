@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.fabirt.ppp.R
 import com.ipsoft.ppp.ui.common.BackButton
 import com.ipsoft.ppp.ui.common.EmphasisText
 import com.ipsoft.ppp.ui.common.PrimaryButton
@@ -22,6 +21,7 @@ import com.ipsoft.ppp.util.formatMillisecondsAsDate
 import com.ipsoft.ppp.util.toDurationMinutes
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.ipsoft.ppp.R
 
 @Composable
 fun PodcastDetailScreen(
@@ -98,7 +98,7 @@ fun PodcastDetailScreen(
                             imageVector = Icons.Rounded.Share,
                             contentDescription = stringResource(R.string.share)
                         ) {
-                            detailViewModel.sharePodcastEpidose(currentContext, podcast)
+                            detailViewModel.sharePodcastEpisode(currentContext, podcast)
                         }
 
                         com.ipsoft.ppp.ui.common.IconButton(

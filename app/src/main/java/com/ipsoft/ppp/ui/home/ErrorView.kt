@@ -9,8 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.fabirt.podcastapp.R
-import com.fabirt.ppp.R
+import com.ipsoft.ppp.R
 
 @Composable
 fun ErrorView(

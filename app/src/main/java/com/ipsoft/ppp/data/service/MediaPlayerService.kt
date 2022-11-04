@@ -15,7 +15,6 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.ipsoft.ppp.data.exoplayer.MediaPlaybackPreparer
-import com.ipsoft.ppp.data.exoplayer.MediaPlayerNotificationListener
 import com.ipsoft.ppp.data.exoplayer.MediaPlayerNotificationManager
 import com.ipsoft.ppp.data.exoplayer.MediaPlayerQueueNavigator
 import com.ipsoft.ppp.data.exoplayer.PodcastMediaSource
@@ -93,8 +92,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
 
         mediaPlayerNotificationManager = MediaPlayerNotificationManager(
             this,
-            mediaSession.sessionToken,
-            MediaPlayerNotificationListener(this)
+            mediaSession.sessionToken
         ) {
             currentDuration = exoPlayer.duration
         }

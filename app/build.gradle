@@ -44,7 +44,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.0.0'
+        kotlinCompilerExtensionVersion "${kotlin_compiler_version}"
         kotlinCompilerVersion '1.4.32'
     }
     namespace 'com.ipsoft.ppp'
@@ -54,13 +54,13 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha02'
-    implementation 'androidx.activity:activity-compose:1.7.0-alpha01'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha02"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha03'
+    implementation 'androidx.activity:activity-compose:1.7.0-alpha02'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha03"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -69,7 +69,7 @@ dependencies {
 
 
     // Navigation
-    implementation "androidx.navigation:navigation-compose:2.6.0-alpha02"
+    implementation "androidx.navigation:navigation-compose:2.6.0-alpha03"
 
     // Compose Accompanist
     implementation "com.google.accompanist:accompanist-insets:0.23.1"
@@ -78,7 +78,6 @@ dependencies {
     // Hilt - dependency injection
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
     // Retrofit
@@ -96,6 +95,6 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
     // Palette API - Selecting colors
-//    implementation 'com.android.support:palette-v7:28.0.0'
+    // implementation 'com.android.support:palette-v7:28.0.0'
     implementation 'androidx.palette:palette-ktx:1.0.0'
 }

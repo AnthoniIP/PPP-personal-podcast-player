@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.fabirt.podcastapp.R
+import com.ipsoft.ppp.R
 
 val NunitoSans = FontFamily(
         Font(R.font.nunito_sans_regular),

@@ -7,7 +7,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.fabirt.ppp.R
+import com.ipsoft.ppp.R
 import com.ipsoft.ppp.ui.common.PrimaryButton
 
 @OptIn(ExperimentalAnimationApi::class)
