@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PPP - Personal Podcast Player</string>
+    <string name="app_name" translatable="false">PPP - Personal Podcast Player</string>
     <string name="get_started">Get Started</string>
     <string name="welcome_title">Say it with\nPodcast</string>
     <string name="trending_now">Trending Now</string>
@@ -7,11 +7,11 @@
     <string name="back">back</string>
     <string name="play">Play</string>
     <string name="share">Share</string>
-    <string name="source_web">Listen Notes URL</string>
-    <string name="unexpected_error">An unexpected error occurred :(\nPlease try again</string>
+    <string name="source_web" translatable="false">Listen Notes URL</string>
+    <string name="unexpected_error">An unexpected error occurred :( \n Please try again</string>
     <string name="try_again">Try again</string>
     <string name="share_podcast_content">Take a look at this podcast: %1$s %2$s</string>
-    <string name="playback_notification_channel_name">Podcasts</string>
+    <string name="playback_notification_channel_name" translatable="false">Podcasts</string>
     <string name="playback_notification_channel_description">Playback notification for Listen Notes</string>
     <string name="pause">Pause</string>
     <string name="close">Close</string>
