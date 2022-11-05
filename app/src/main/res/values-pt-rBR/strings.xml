@@ -17,4 +17,5 @@
     <string name="welcome_title">Bem-vindo ao Personal Podcast Player</string>
     <string name="playback_notification_channel_description">notificação de reprodução pelo Lister notes</string>
     <string name="welcome_subtitle">Escute seus podcasts favoritos onde quiser</string>
+    <string name="search_podcasts">Procurar podcasts</string>
 </resources>

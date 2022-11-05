@@ -10,12 +10,12 @@ import com.ipsoft.ppp.domain.model.PodcastSearch
 import com.ipsoft.ppp.domain.repository.PodcastRepository
 import com.ipsoft.ppp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class PodcastSearchViewModel @Inject constructor(
-    private val repository: PodcastRepository
+    private val repository: PodcastRepository,
 ) : ViewModel() {
 
     var podcastSearch by mutableStateOf<Resource<PodcastSearch>>(Resource.Loading)
@@ -33,10 +33,10 @@ class PodcastSearchViewModel @Inject constructor(
         }
     }
 
-    fun searchPodcasts() {
+    fun searchPodcasts(query: String = "fiction") {
         viewModelScope.launch {
             podcastSearch = Resource.Loading
-            val result = repository.searchPodcasts("fiction", "episode")
+            val result = repository.searchPodcasts(query, "episode")
             result.fold(
                 { failure ->
                     podcastSearch = Resource.Error(failure)

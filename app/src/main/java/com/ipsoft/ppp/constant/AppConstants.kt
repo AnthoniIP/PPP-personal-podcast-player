@@ -2,6 +2,8 @@ package com.ipsoft.ppp.constant
 
 object AppConstants {
 
+    const val DEFAULT_LANGUAGE: String = "Portuguese"
+
     const val PLAYBACK_NOTIFICATION_CHANNEL_ID = "UEBWUJBQ0tfTk9USUZJQ0FUSU9OX0NIQU5ORUxfSUQ"
 
     const val PLAYBACK_NOTIFICATION_ID = 115234045

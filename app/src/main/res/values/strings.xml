@@ -18,4 +18,5 @@
     <string name="replay_10_seconds">Replay 10 seconds</string>
     <string name="forward_10_seconds">Forward 10 seconds</string>
     <string name="welcome_subtitle">Listen to your favorite podcast at any place</string>
+    <string name="search_podcasts">Search for podcasts</string>
 </resources>
