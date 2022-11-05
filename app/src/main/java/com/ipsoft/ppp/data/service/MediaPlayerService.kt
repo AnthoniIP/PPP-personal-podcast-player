@@ -9,7 +9,7 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
 import androidx.media.MediaBrowserServiceCompat
-import com.ipsoft.ppp.constant.K
+import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.ui.MainActivity
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
@@ -62,7 +62,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         Log.i(TAG, "onCreate called")
         val activityPendingIntent = Intent(this, MainActivity::class.java)
             .apply {
-                action = K.ACTION_PODCAST_NOTIFICATION_CLICK
+                action = AppConstants.ACTION_PODCAST_NOTIFICATION_CLICK
             }
             .let {
                 PendingIntent.getActivity(
@@ -105,12 +105,12 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
     override fun onCustomAction(action: String, extras: Bundle?, result: Result<Bundle>) {
         super.onCustomAction(action, extras, result)
         when (action) {
-            K.START_MEDIA_PLAYBACK_ACTION -> {
+            AppConstants.START_MEDIA_PLAYBACK_ACTION -> {
                 mediaPlayerNotificationManager.showNotification(exoPlayer)
             }
-            K.REFRESH_MEDIA_BROWSER_CHILDREN -> {
+            AppConstants.REFRESH_MEDIA_BROWSER_CHILDREN -> {
                 mediaSource.refresh()
-                notifyChildrenChanged(K.MEDIA_ROOT_ID)
+                notifyChildrenChanged(AppConstants.MEDIA_ROOT_ID)
             }
             else -> Unit
         }
@@ -121,7 +121,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         clientUid: Int,
         rootHints: Bundle?
     ): BrowserRoot {
-        return BrowserRoot(K.MEDIA_ROOT_ID, null)
+        return BrowserRoot(AppConstants.MEDIA_ROOT_ID, null)
     }
 
     override fun onLoadChildren(
@@ -130,7 +130,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
     ) {
         Log.i(TAG, "onLoadChildren called")
         when (parentId) {
-            K.MEDIA_ROOT_ID -> {
+            AppConstants.MEDIA_ROOT_ID -> {
                 val resultsSent = mediaSource.whenReady { isInitialized ->
                     if (isInitialized) {
 

@@ -7,7 +7,7 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.compose.runtime.mutableStateOf
-import com.ipsoft.ppp.constant.K
+import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.data.exoplayer.PodcastMediaSource
 import com.ipsoft.ppp.domain.model.Episode
 import com.ipsoft.ppp.util.currentPosition
@@ -40,7 +40,7 @@ class MediaPlayerServiceConnection(
 
     fun playPodcast(episodes: List<Episode>) {
         mediaSource.setEpisodes(episodes)
-        mediaBrowser.sendCustomAction(K.START_MEDIA_PLAYBACK_ACTION, null, null)
+        mediaBrowser.sendCustomAction(AppConstants.START_MEDIA_PLAYBACK_ACTION, null, null)
     }
 
     fun fastForward(seconds: Int = 10) {
@@ -64,7 +64,7 @@ class MediaPlayerServiceConnection(
     }
 
     fun refreshMediaBrowserChildren() {
-        mediaBrowser.sendCustomAction(K.REFRESH_MEDIA_BROWSER_CHILDREN, null, null)
+        mediaBrowser.sendCustomAction(AppConstants.REFRESH_MEDIA_BROWSER_CHILDREN, null, null)
     }
 
     private inner class MediaBrowserConnectionCallback(

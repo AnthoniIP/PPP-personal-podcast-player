@@ -1,6 +1,6 @@
 package com.ipsoft.ppp.constant
 
-object K {
+object AppConstants {
 
     const val PLAYBACK_NOTIFICATION_CHANNEL_ID = "UEBWUJBQ0tfTk9USUZJQ0FUSU9OX0NIQU5ORUxfSUQ"
 

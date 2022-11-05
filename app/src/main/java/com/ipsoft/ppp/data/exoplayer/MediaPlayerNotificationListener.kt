@@ -3,7 +3,7 @@ package com.ipsoft.ppp.data.exoplayer
 import android.app.Notification
 import android.content.Intent
 import androidx.core.content.ContextCompat
-import com.ipsoft.ppp.constant.K
+import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.data.service.MediaPlayerService
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 
@@ -32,7 +32,7 @@ class MediaPlayerNotificationListener(
                     this,
                     Intent(applicationContext, this::class.java)
                 )
-                startForeground(K.PLAYBACK_NOTIFICATION_ID, notification)
+                startForeground(AppConstants.PLAYBACK_NOTIFICATION_ID, notification)
                 isForegroundService = true
             }
         }

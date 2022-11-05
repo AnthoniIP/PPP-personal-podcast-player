@@ -13,7 +13,7 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
-import com.ipsoft.ppp.constant.K
+import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.ui.common.ProvideMultiViewModel
 import com.ipsoft.ppp.ui.home.HomeScreen
 import com.ipsoft.ppp.ui.navigation.Destination
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         setTheme(R.style.Theme_PodcastApp)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         var startDestination = Destination.welcome
-        if (intent?.action == K.ACTION_PODCAST_NOTIFICATION_CLICK) {
+        if (intent?.action == AppConstants.ACTION_PODCAST_NOTIFICATION_CLICK) {
             startDestination = Destination.home
         }
 

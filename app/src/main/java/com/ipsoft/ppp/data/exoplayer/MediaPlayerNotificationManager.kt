@@ -13,7 +13,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.ipsoft.ppp.R
-import com.ipsoft.ppp.constant.K
+import com.ipsoft.ppp.constant.AppConstants
 
 class MediaPlayerNotificationManager(
     private val context: Context,
@@ -39,8 +39,8 @@ class MediaPlayerNotificationManager(
     ): PlayerNotificationManager {
         return PlayerNotificationManager.Builder(
             context,
-            K.PLAYBACK_NOTIFICATION_ID,
-            K.PLAYBACK_NOTIFICATION_CHANNEL_ID,
+            AppConstants.PLAYBACK_NOTIFICATION_ID,
+            AppConstants.PLAYBACK_NOTIFICATION_CHANNEL_ID,
             DescriptionAdapter(mediaController)
         ).build().apply {
             setSmallIcon(R.drawable.ic_microphone)

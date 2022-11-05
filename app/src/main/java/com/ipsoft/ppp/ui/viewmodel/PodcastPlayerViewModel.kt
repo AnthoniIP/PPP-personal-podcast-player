@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.palette.graphics.Palette
-import com.ipsoft.ppp.constant.K
+import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.data.service.MediaPlayerService
 import com.ipsoft.ppp.data.service.MediaPlayerServiceConnection
 import com.ipsoft.ppp.domain.model.Episode
@@ -116,7 +116,7 @@ class PodcastPlayerViewModel @Inject constructor(
         if (currentPosition != null && currentPosition != currentPlaybackPosition) {
             currentPlaybackPosition = currentPosition
         }
-        delay(K.PLAYBACK_POSITION_UPDATE_INTERVAL)
+        delay(AppConstants.PLAYBACK_POSITION_UPDATE_INTERVAL)
         updateCurrentPlaybackPosition()
     }
 
@@ -128,7 +128,7 @@ class PodcastPlayerViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         serviceConnection.unsubscribe(
-            K.MEDIA_ROOT_ID,
+            AppConstants.MEDIA_ROOT_ID,
             object : MediaBrowserCompat.SubscriptionCallback() {})
     }
 }

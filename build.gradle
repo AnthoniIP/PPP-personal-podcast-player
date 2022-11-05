@@ -12,6 +12,7 @@ buildscript {
         logging_interceptor_version = '5.0.0-alpha.6'
         glide_version = "4.13.2"
         kotlin_compiler_version = "1.2.0"
+        timber_version = '5.0.1'
     }
     repositories {
         google()
