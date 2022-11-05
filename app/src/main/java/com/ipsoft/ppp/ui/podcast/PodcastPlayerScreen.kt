@@ -45,7 +45,6 @@ import com.google.accompanist.insets.systemBarsPadding
 import com.ipsoft.ppp.R
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun PodcastPlayerScreen(backDispatcher: OnBackPressedDispatcher) {
     val podcastPlayer = ViewModelProvider.podcastPlayer
@@ -126,7 +125,7 @@ fun PodcastPlayerBody(episode: Episode, backDispatcher: OnBackPressedDispatcher)
             }
         }
 
-        PodcastPlayerSatelessContent(
+        PodcastPlayerStatelessContent(
             episode = episode,
             darkTheme = isSystemInDarkTheme(),
             imagePainter = imagePainter,
@@ -173,7 +172,7 @@ fun PodcastPlayerBody(episode: Episode, backDispatcher: OnBackPressedDispatcher)
 }
 
 @Composable
-fun PodcastPlayerSatelessContent(
+fun PodcastPlayerStatelessContent(
     episode: Episode,
     imagePainter: Painter,
     gradientColor: Color,
@@ -348,7 +347,7 @@ fun PodcastPlayerSatelessContent(
 @Composable
 fun PodcastPlayerPreview() {
     PreviewContent(darkTheme = true) {
-        PodcastPlayerSatelessContent(
+        PodcastPlayerStatelessContent(
             episode = Episode(
                 "1",
                 "",

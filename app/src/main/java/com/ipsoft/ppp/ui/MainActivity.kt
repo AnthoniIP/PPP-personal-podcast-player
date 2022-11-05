@@ -23,7 +23,7 @@ import com.ipsoft.ppp.ui.podcast.PodcastBottomBar
 import com.ipsoft.ppp.ui.podcast.PodcastDetailScreen
 import com.ipsoft.ppp.ui.podcast.PodcastPlayerScreen
 import com.ipsoft.ppp.ui.theme.PodcastAppTheme
-import com.fabirt.ppp.ui.welcome.WelcomeScreen
+import com.ipsoft.ppp.ui.welcome.WelcomeScreen
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.ipsoft.ppp.R
 import dagger.hilt.android.AndroidEntryPoint

@@ -39,7 +39,6 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.ipsoft.ppp.R
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun PodcastBottomBar(
     modifier: Modifier = Modifier

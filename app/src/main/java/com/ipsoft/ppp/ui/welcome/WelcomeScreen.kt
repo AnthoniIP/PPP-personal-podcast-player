@@ -1,4 +1,4 @@
-package com.fabirt.ppp.ui.welcome
+package com.ipsoft.ppp.ui.welcome
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import com.ipsoft.ppp.ui.common.PreviewContent
 import com.ipsoft.ppp.ui.navigation.Destination
 import com.ipsoft.ppp.ui.navigation.Navigator
-import com.ipsoft.ppp.ui.welcome.AnimatedTitle
 
 @Composable
 fun WelcomeScreen() {
@@ -40,8 +39,6 @@ fun WelcomeScreenContent(
             modifier = Modifier.fillMaxSize()
         ) {
             AnimatedTitle(visible = visible)
-
-            AnimatedImage(visible = visible)
 
             Spacer(modifier = Modifier.height(16.dp))
 

@@ -12,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.ipsoft.ppp.R
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedTitle(visible: Boolean) {
     val titleEnterTransition = fadeIn(
