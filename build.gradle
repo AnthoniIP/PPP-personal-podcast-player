@@ -9,6 +9,7 @@ buildscript {
         hilt_version = '2.44'
         retrofit_version = "2.9.0"
         exo_player_version = "2.18.1"
+        logging_interceptor_version = '5.0.0-alpha.6'
         glide_version = "4.13.2"
         kotlin_compiler_version = "1.2.0"
     }

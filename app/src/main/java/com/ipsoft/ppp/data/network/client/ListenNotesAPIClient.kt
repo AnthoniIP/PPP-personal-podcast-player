@@ -5,6 +5,7 @@ import com.ipsoft.ppp.data.network.constant.ListenNotesAPI
 import com.ipsoft.ppp.data.network.service.PodcastService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -21,6 +22,11 @@ object ListenNotesAPIClient {
 
         val httpClient = OkHttpClient.Builder()
             .addInterceptor(requestInterceptor)
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            httpClient.addInterceptor(loggingInterceptor)
+        }
 
         return httpClient.build()
     }
