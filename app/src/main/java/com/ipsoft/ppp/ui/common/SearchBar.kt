@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.OutlinedTextField
@@ -70,7 +71,7 @@ fun SearchBar(
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
-                androidx.compose.material.IconButton(onClick = { onClearClick() }) {
+                IconButton(onClick = { onClearClick() }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null

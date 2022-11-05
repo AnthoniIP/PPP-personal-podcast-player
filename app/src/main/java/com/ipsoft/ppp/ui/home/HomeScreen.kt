@@ -6,7 +6,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +31,7 @@ import com.ipsoft.ppp.util.Resource
 fun HomeScreen() {
     val scrollState = rememberLazyListState()
     val navController = Navigator.current
-    var lastSearch = remember { "" }
+    var lastSearch by remember { mutableStateOf("") }
     val podcastSearchViewModel = ViewModelProvider.podcastSearch
     val podcastSearch = podcastSearchViewModel.podcastSearch
 
@@ -40,6 +43,11 @@ fun HomeScreen() {
                     onSearchTextChanged = {
                         lastSearch = it
                         podcastSearchViewModel.searchPodcasts(lastSearch)
+
+                    },
+                    onClearClick = {
+                        lastSearch = ""
+                        podcastSearchViewModel.searchPodcasts()
                     }
                 )
             }

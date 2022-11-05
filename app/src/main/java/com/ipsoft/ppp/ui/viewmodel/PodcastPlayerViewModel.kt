@@ -18,14 +18,14 @@ import com.ipsoft.ppp.util.currentPosition
 import com.ipsoft.ppp.util.isPlayEnabled
 import com.ipsoft.ppp.util.isPlaying
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 @HiltViewModel
 class PodcastPlayerViewModel @Inject constructor(
-    private val serviceConnection: MediaPlayerServiceConnection
+    private val serviceConnection: MediaPlayerServiceConnection,
 ) : ViewModel() {
 
     val currentPlayingEpisode = serviceConnection.currentPlayingEpisode
@@ -121,7 +121,7 @@ class PodcastPlayerViewModel @Inject constructor(
     }
 
     private fun formatLong(value: Long): String {
-        val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
         return dateFormat.format(value)
     }
 
