@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.ipsoft.ppp.R
 
 @Composable
-fun AnimatedTitle(visible: Boolean) {
+fun AnimatedText(visible: Boolean) {
     val titleEnterTransition = fadeIn(
         animationSpec = tween(1000, 1600)
     ) + slideInVertically(
@@ -25,8 +25,8 @@ fun AnimatedTitle(visible: Boolean) {
         enter = titleEnterTransition,
     ) {
         Text(
-            text = stringResource(R.string.welcome_title),
-            style = MaterialTheme.typography.h1,
+            text = stringResource(R.string.welcome_subtitle),
+            style = MaterialTheme.typography.h2,
             textAlign = TextAlign.Center
         )
     }

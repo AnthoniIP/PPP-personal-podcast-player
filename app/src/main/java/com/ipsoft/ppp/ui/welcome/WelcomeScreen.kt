@@ -1,8 +1,17 @@
 package com.ipsoft.ppp.ui.welcome
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,7 +39,7 @@ fun WelcomeScreen() {
 @Composable
 fun WelcomeScreenContent(
     visible: Boolean,
-    onGetStarted: () -> Unit
+    onGetStarted: () -> Unit,
 ) {
     Surface {
         Column(
@@ -39,7 +48,8 @@ fun WelcomeScreenContent(
             modifier = Modifier.fillMaxSize()
         ) {
             AnimatedTitle(visible = visible)
-
+            Spacer(modifier = Modifier.height(16.dp))
+            AnimatedText(visible = visible)
             Spacer(modifier = Modifier.height(16.dp))
 
             AnimatedButton(visible = visible, onClick = onGetStarted)
