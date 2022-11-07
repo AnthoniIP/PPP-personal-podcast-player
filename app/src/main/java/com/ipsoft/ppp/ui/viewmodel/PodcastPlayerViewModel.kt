@@ -18,10 +18,10 @@ import com.ipsoft.ppp.util.currentPosition
 import com.ipsoft.ppp.util.isPlayEnabled
 import com.ipsoft.ppp.util.isPlaying
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
-import kotlinx.coroutines.delay
 
 @HiltViewModel
 class PodcastPlayerViewModel @Inject constructor(
@@ -129,6 +129,7 @@ class PodcastPlayerViewModel @Inject constructor(
         super.onCleared()
         serviceConnection.unsubscribe(
             AppConstants.MEDIA_ROOT_ID,
-            object : MediaBrowserCompat.SubscriptionCallback() {})
+            object : MediaBrowserCompat.SubscriptionCallback() {}
+        )
     }
 }

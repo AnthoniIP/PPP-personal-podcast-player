@@ -44,7 +44,6 @@ fun SearchBar(
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
 
-
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -77,7 +76,6 @@ fun SearchBar(
                         contentDescription = null
                     )
                 }
-
             }
         },
         maxLines = 1,
@@ -87,6 +85,4 @@ fun SearchBar(
             keyboardController?.hide()
         }),
     )
-
-
 }

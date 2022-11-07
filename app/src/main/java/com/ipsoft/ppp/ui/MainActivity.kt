@@ -13,6 +13,8 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.ipsoft.ppp.R
 import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.ui.common.ProvideMultiViewModel
 import com.ipsoft.ppp.ui.home.HomeScreen
@@ -24,8 +26,6 @@ import com.ipsoft.ppp.ui.podcast.PodcastDetailScreen
 import com.ipsoft.ppp.ui.podcast.PodcastPlayerScreen
 import com.ipsoft.ppp.ui.theme.PodcastAppTheme
 import com.ipsoft.ppp.ui.welcome.WelcomeScreen
-import com.google.accompanist.insets.ProvideWindowInsets
-import com.ipsoft.ppp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

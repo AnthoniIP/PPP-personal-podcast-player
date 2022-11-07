@@ -9,20 +9,21 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
 import androidx.media.MediaBrowserServiceCompat
-import com.ipsoft.ppp.constant.AppConstants
-import com.ipsoft.ppp.ui.MainActivity
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.data.exoplayer.MediaPlaybackPreparer
 import com.ipsoft.ppp.data.exoplayer.MediaPlayerNotificationManager
 import com.ipsoft.ppp.data.exoplayer.MediaPlayerQueueNavigator
 import com.ipsoft.ppp.data.exoplayer.PodcastMediaSource
+import com.ipsoft.ppp.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -69,7 +70,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
                     this,
                     0,
                     it,
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
                 )
             }
 
@@ -92,7 +93,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
 
         mediaPlayerNotificationManager = MediaPlayerNotificationManager(
             this,
-            mediaSession.sessionToken
+            mediaSession.sessionToken,
         ) {
             currentDuration = exoPlayer.duration
         }
@@ -108,10 +109,12 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
             AppConstants.START_MEDIA_PLAYBACK_ACTION -> {
                 mediaPlayerNotificationManager.showNotification(exoPlayer)
             }
+
             AppConstants.REFRESH_MEDIA_BROWSER_CHILDREN -> {
                 mediaSource.refresh()
                 notifyChildrenChanged(AppConstants.MEDIA_ROOT_ID)
             }
+
             else -> Unit
         }
     }
@@ -119,23 +122,25 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
     override fun onGetRoot(
         clientPackageName: String,
         clientUid: Int,
-        rootHints: Bundle?
+        rootHints: Bundle?,
     ): BrowserRoot {
         return BrowserRoot(AppConstants.MEDIA_ROOT_ID, null)
     }
 
     override fun onLoadChildren(
         parentId: String,
-        result: Result<MutableList<MediaBrowserCompat.MediaItem>>
+        result: Result<MutableList<MediaBrowserCompat.MediaItem>>,
     ) {
-        Log.i(TAG, "onLoadChildren called")
+        Timber.i("onLoadChildren called")
         when (parentId) {
             AppConstants.MEDIA_ROOT_ID -> {
                 val resultsSent = mediaSource.whenReady { isInitialized ->
                     if (isInitialized) {
 
                         result.sendResult(mediaSource.asMediaItems())
-                        if (!isPlayerInitialized && mediaSource.mediaMetadataEpisodes.isNotEmpty()) {
+                        if (!isPlayerInitialized &&
+                            mediaSource.mediaMetadataEpisodes.isNotEmpty()
+                        ) {
                             isPlayerInitialized = true
                         }
                     } else {
@@ -146,6 +151,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
                     result.detach()
                 }
             }
+
             else -> Unit
         }
     }
@@ -159,7 +165,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
     private fun preparePlayer(
         mediaMetaData: List<MediaMetadataCompat>,
         itemToPlay: MediaMetadataCompat?,
-        playWhenReady: Boolean
+        playWhenReady: Boolean,
     ) {
         val indexToPlay = if (currentPlayingMedia == null) 0 else mediaMetaData.indexOf(itemToPlay)
         exoPlayer.setMediaSource(mediaSource.asMediaSource(dataSourceFactory))

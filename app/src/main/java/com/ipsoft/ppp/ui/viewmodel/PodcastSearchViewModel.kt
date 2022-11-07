@@ -10,8 +10,8 @@ import com.ipsoft.ppp.domain.model.PodcastSearch
 import com.ipsoft.ppp.domain.repository.PodcastRepository
 import com.ipsoft.ppp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class PodcastSearchViewModel @Inject constructor(
@@ -29,7 +29,9 @@ class PodcastSearchViewModel @Inject constructor(
         return when (podcastSearch) {
             is Resource.Error -> null
             Resource.Loading -> null
-            is Resource.Success -> (podcastSearch as Resource.Success<PodcastSearch>).data.results.find { it.id == id }
+            is Resource.Success -> (
+                podcastSearch as Resource.Success<PodcastSearch>
+                ).data.results.find { it.id == id }
         }
     }
 
@@ -43,7 +45,7 @@ class PodcastSearchViewModel @Inject constructor(
                 },
                 { data ->
                     podcastSearch = Resource.Success(data)
-                }
+                },
             )
         }
     }

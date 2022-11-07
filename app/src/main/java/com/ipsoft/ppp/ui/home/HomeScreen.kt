@@ -5,11 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,23 +34,22 @@ fun HomeScreen() {
     Surface {
         LazyColumn(state = scrollState, modifier = Modifier.statusBarsPadding()) {
             item {
-                SearchBar(searchText = lastSearch,
+                SearchBar(
+                    searchText = lastSearch,
                     placeholderText = stringResource(id = R.string.search_podcasts),
                     onSearchTextChanged = {
                         lastSearch = it
                         podcastSearchViewModel.searchPodcasts(lastSearch)
-
                     },
                     onClearClick = {
                         lastSearch = ""
                         podcastSearchViewModel.searchPodcasts()
-                    }
+                    },
                 )
             }
             item {
                 LargeTitle()
             }
-
 
             when (podcastSearch) {
                 is Resource.Error -> {
@@ -64,22 +59,24 @@ fun HomeScreen() {
                         }
                     }
                 }
+
                 Resource.Loading -> {
                     item {
                         LoadingPlaceholder()
                     }
                 }
+
                 is Resource.Success -> {
                     item {
                         StaggeredVerticalGrid(
                             crossAxisCount = 2,
                             spacing = 16.dp,
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            modifier = Modifier.padding(horizontal = 16.dp),
                         ) {
                             podcastSearch.data.results.forEach { podcast ->
                                 PodcastView(
                                     podcast = podcast,
-                                    modifier = Modifier.padding(bottom = 16.dp)
+                                    modifier = Modifier.padding(bottom = 16.dp),
                                 ) {
                                     openPodcastDetail(navController, podcast)
                                 }
@@ -94,7 +91,11 @@ fun HomeScreen() {
                     modifier = Modifier
                         .navigationBarsPadding()
                         .padding(bottom = 32.dp)
-                        .padding(bottom = if (ViewModelProvider.podcastPlayer.currentPlayingEpisode.value != null) 64.dp else 0.dp)
+                        .padding(
+                            bottom = if (
+                                ViewModelProvider.podcastPlayer.currentPlayingEpisode.value != null
+                            ) 64.dp else 0.dp,
+                        ),
                 )
             }
         }

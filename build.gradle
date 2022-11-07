@@ -13,15 +13,20 @@ buildscript {
         glide_version = "4.13.2"
         kotlin_compiler_version = "1.2.0"
         timber_version = '5.0.1'
+        klint_gradle_version = '10.3.0'
     }
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:$klint_gradle_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
     }
 }

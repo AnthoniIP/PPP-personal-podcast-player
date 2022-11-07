@@ -1,7 +1,7 @@
 package com.ipsoft.ppp.data.network.model
 
-import com.ipsoft.ppp.domain.model.Podcast
 import com.google.gson.annotations.SerializedName
+import com.ipsoft.ppp.domain.model.Podcast
 
 data class PodcastDto(
     val id: String,

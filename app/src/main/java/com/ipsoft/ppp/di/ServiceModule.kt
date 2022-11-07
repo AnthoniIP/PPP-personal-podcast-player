@@ -40,7 +40,6 @@ object ServiceModule {
         .apply {
             setAudioAttributes(audioAttributes, true)
             setHandleAudioBecomingNoisy(true)
-
         }
 
     @Provides

@@ -22,7 +22,8 @@ class MediaPlaybackPreparer(
     ): Boolean = false
 
     override fun getSupportedPrepareActions(): Long {
-        return PlaybackStateCompat.ACTION_PREPARE_FROM_MEDIA_ID or PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
+        return PlaybackStateCompat
+            .ACTION_PREPARE_FROM_MEDIA_ID or PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
     }
 
     override fun onPrepareFromMediaId(mediaId: String, playWhenReady: Boolean, extras: Bundle?) {

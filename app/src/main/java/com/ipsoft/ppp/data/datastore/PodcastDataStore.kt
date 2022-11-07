@@ -8,8 +8,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.ipsoft.ppp.domain.model.PodcastSearch
 import com.google.gson.Gson
+import com.ipsoft.ppp.domain.model.PodcastSearch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.time.Instant
@@ -55,4 +55,4 @@ class PodcastDataStore(
     }
 }
 
-private val Context.podcastDataStore: DataStore<Preferences> by preferencesDataStore(name = "podcasts")
+private val Context.podcastDataStore: DataStore<Preferences> by preferencesDataStore("podcasts")

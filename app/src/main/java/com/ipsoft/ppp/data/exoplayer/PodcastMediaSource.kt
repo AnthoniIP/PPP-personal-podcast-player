@@ -4,11 +4,11 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import androidx.core.net.toUri
-import com.ipsoft.ppp.domain.model.Episode
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
+import com.ipsoft.ppp.domain.model.Episode
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,17 +22,17 @@ class PodcastMediaSource @Inject constructor() {
     private var state: MusicSourceState =
         MusicSourceState.CREATED
         set(value) {
-            if (value == MusicSourceState.INITIALIZED || value == MusicSourceState.ERROR) {
-                synchronized(onReadyListeners) {
-                    field = value
-                    onReadyListeners.forEach { listener ->
-                        listener(isReady)
+                if (value == MusicSourceState.INITIALIZED || value == MusicSourceState.ERROR) {
+                    synchronized(onReadyListeners) {
+                        field = value
+                        onReadyListeners.forEach { listener ->
+                            listener(isReady)
+                        }
                     }
+                } else {
+                    field = value
                 }
-            } else {
-                field = value
             }
-        }
 
     private val isReady: Boolean
         get() = state == MusicSourceState.INITIALIZED
@@ -45,12 +45,12 @@ class PodcastMediaSource @Inject constructor() {
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, episode.id)
                 .putString(
                     MediaMetadataCompat.METADATA_KEY_ARTIST,
-                    episode.podcast.publisherOriginal
+                    episode.podcast.publisherOriginal,
                 )
                 .putString(MediaMetadataCompat.METADATA_KEY_TITLE, episode.titleOriginal)
                 .putString(
                     MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE,
-                    episode.podcast.titleOriginal
+                    episode.podcast.titleOriginal,
                 )
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, episode.audio)
                 .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, episode.image)
@@ -63,9 +63,10 @@ class PodcastMediaSource @Inject constructor() {
         val concatenatingMediaSource = ConcatenatingMediaSource()
         mediaMetadataEpisodes.forEach { metadata ->
             val mediaItem = MediaItem.fromUri(
-                metadata.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI).toUri()
+                metadata.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI).toUri(),
             )
-            val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
+            val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(mediaItem)
             concatenatingMediaSource.addMediaSource(mediaSource)
         }
         return concatenatingMediaSource

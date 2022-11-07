@@ -34,15 +34,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil.request.ImageRequest
+import com.google.accompanist.coil.rememberCoilPainter
+import com.google.accompanist.insets.systemBarsPadding
+import com.ipsoft.ppp.R
 import com.ipsoft.ppp.domain.model.Episode
 import com.ipsoft.ppp.domain.model.Podcast
 import com.ipsoft.ppp.ui.common.EmphasisText
 import com.ipsoft.ppp.ui.common.IconButton
 import com.ipsoft.ppp.ui.common.PreviewContent
 import com.ipsoft.ppp.ui.common.ViewModelProvider
-import com.google.accompanist.coil.rememberCoilPainter
-import com.google.accompanist.insets.systemBarsPadding
-import com.ipsoft.ppp.R
 import kotlin.math.roundToInt
 
 @Composable
@@ -53,11 +53,11 @@ fun PodcastPlayerScreen(backDispatcher: OnBackPressedDispatcher) {
     AnimatedVisibility(
         visible = episode != null && podcastPlayer.showPlayerFullScreen,
         enter = slideInVertically(
-            initialOffsetY = { it }
+            initialOffsetY = { it },
         ),
         exit = slideOutVertically(
-            targetOffsetY = { it }
-        )
+            targetOffsetY = { it },
+        ),
     ) {
         if (episode != null) {
             PodcastPlayerBody(episode, backDispatcher)
@@ -73,7 +73,7 @@ fun PodcastPlayerBody(episode: Episode, backDispatcher: OnBackPressedDispatcher)
     val endAnchor = LocalConfiguration.current.screenHeightDp * LocalDensity.current.density
     val anchors = mapOf(
         0f to 0,
-        endAnchor to 1
+        endAnchor to 1,
     )
 
     val backCallback = remember {
@@ -101,13 +101,16 @@ fun PodcastPlayerBody(episode: Episode, backDispatcher: OnBackPressedDispatcher)
     val imagePainter = rememberCoilPainter(request = imageRequest)
 
     val iconResId =
-        if (podcastPlayer.podcastIsPlaying) R.drawable.ic_round_pause else R.drawable.ic_round_play_arrow
+        if (
+            podcastPlayer.podcastIsPlaying
+        ) R.drawable.ic_round_pause else R.drawable.ic_round_play_arrow
 
     var sliderIsChanging by remember { mutableStateOf(false) }
 
     var localSliderValue by remember { mutableStateOf(0f) }
 
-    val sliderProgress = if (sliderIsChanging) localSliderValue else podcastPlayer.currentEpisodeProgress
+    val sliderProgress =
+        if (sliderIsChanging) localSliderValue else podcastPlayer.currentEpisodeProgress
 
     Box(
         modifier = Modifier
@@ -116,8 +119,8 @@ fun PodcastPlayerBody(episode: Episode, backDispatcher: OnBackPressedDispatcher)
                 state = swipeableState,
                 anchors = anchors,
                 thresholds = { _, _ -> FractionalThreshold(0.34f) },
-                orientation = Orientation.Vertical
-            )
+                orientation = Orientation.Vertical,
+            ),
     ) {
         if (swipeableState.currentValue >= 1) {
             LaunchedEffect("key") {
@@ -151,7 +154,7 @@ fun PodcastPlayerBody(episode: Episode, backDispatcher: OnBackPressedDispatcher)
             onSliderChangeFinished = {
                 podcastPlayer.seekToFraction(localSliderValue)
                 sliderIsChanging = false
-            }
+            },
         ) {
             podcastPlayer.showPlayerFullScreen = false
         }
@@ -187,7 +190,7 @@ fun PodcastPlayerStatelessContent(
     onTooglePlayback: () -> Unit,
     onSliderChange: (Float) -> Unit,
     onSliderChangeFinished: () -> Unit,
-    onClose: () -> Unit
+    onClose: () -> Unit,
 ) {
     val gradientColors = if (darkTheme) {
         listOf(gradientColor, MaterialTheme.colors.background)
@@ -200,22 +203,21 @@ fun PodcastPlayerStatelessContent(
             thumbColor = MaterialTheme.colors.onBackground,
             activeTrackColor = MaterialTheme.colors.onBackground,
             inactiveTrackColor = MaterialTheme.colors.onBackground.copy(
-                alpha = IndicatorBackgroundOpacity
+                alpha = IndicatorBackgroundOpacity,
             ),
         )
     } else SliderDefaults.colors(
         thumbColor = gradientColor,
         activeTrackColor = gradientColor,
         inactiveTrackColor = gradientColor.copy(
-            alpha = IndicatorBackgroundOpacity
+            alpha = IndicatorBackgroundOpacity,
         ),
     )
-
 
     Box(
         modifier = Modifier
             .offset { IntOffset(0, yOffset) }
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         Surface {
             Box(
@@ -223,21 +225,27 @@ fun PodcastPlayerStatelessContent(
                     .background(
                         Brush.verticalGradient(
                             colors = gradientColors,
-                            endY = LocalConfiguration.current.screenHeightDp.toFloat() * LocalDensity.current.density / 2
-                        )
+                            endY = LocalConfiguration
+                                .current
+                                .screenHeightDp
+                                .toFloat() *
+                                LocalDensity
+                                    .current
+                                    .density / 2,
+                        ),
                     )
                     .fillMaxSize()
-                    .systemBarsPadding()
+                    .systemBarsPadding(),
             ) {
                 Column {
                     IconButton(
                         imageVector = Icons.Rounded.KeyboardArrowDown,
                         contentDescription = stringResource(R.string.close),
-                        onClick = onClose
+                        onClick = onClose,
                     )
 
                     Column(
-                        modifier = Modifier.padding(horizontal = 24.dp)
+                        modifier = Modifier.padding(horizontal = 24.dp),
                     ) {
 
                         Box(
@@ -246,7 +254,7 @@ fun PodcastPlayerStatelessContent(
                                 .clip(MaterialTheme.shapes.medium)
                                 .weight(1f, fill = false)
                                 .aspectRatio(1f)
-                                .background(MaterialTheme.colors.onBackground.copy(alpha = 0.08f))
+                                .background(MaterialTheme.colors.onBackground.copy(alpha = 0.08f)),
                         ) {
                             Image(
                                 painter = imagePainter,
@@ -272,13 +280,13 @@ fun PodcastPlayerStatelessContent(
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.graphicsLayer {
                                 alpha = 0.60f
-                            }
+                            },
                         )
 
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 24.dp)
+                                .padding(vertical = 24.dp),
                         ) {
                             Slider(
                                 value = playbackProgress,
@@ -292,7 +300,7 @@ fun PodcastPlayerStatelessContent(
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
+                                verticalAlignment = Alignment.CenterVertically,
                             ) {
                                 EmphasisText(text = currentTime)
                                 EmphasisText(text = totalTime)
@@ -313,7 +321,7 @@ fun PodcastPlayerStatelessContent(
                                     .clip(CircleShape)
                                     .clickable(onClick = onRewind)
                                     .padding(12.dp)
-                                    .size(32.dp)
+                                    .size(32.dp),
                             )
                             Icon(
                                 painter = painterResource(playPauseIcon),
@@ -324,7 +332,7 @@ fun PodcastPlayerStatelessContent(
                                     .background(MaterialTheme.colors.onBackground)
                                     .clickable(onClick = onTooglePlayback)
                                     .size(64.dp)
-                                    .padding(8.dp)
+                                    .padding(8.dp),
                             )
                             Icon(
                                 painter = painterResource(R.drawable.ic_round_forward_10),
@@ -333,7 +341,7 @@ fun PodcastPlayerStatelessContent(
                                     .clip(CircleShape)
                                     .clickable(onClick = onForward)
                                     .padding(12.dp)
-                                    .size(32.dp)
+                                    .size(32.dp),
                             )
                         }
                     }
@@ -360,7 +368,7 @@ fun PodcastPlayerPreview() {
                 "",
                 2700,
                 false,
-                "This is a description"
+                "This is a description",
             ),
             imagePainter = painterResource(id = R.drawable.ic_microphone),
             gradientColor = Color.DarkGray,
@@ -375,7 +383,7 @@ fun PodcastPlayerPreview() {
             onRewind = { },
             onTooglePlayback = { },
             onSliderChange = { },
-            onSliderChangeFinished = { }
+            onSliderChangeFinished = { },
         )
     }
 }
