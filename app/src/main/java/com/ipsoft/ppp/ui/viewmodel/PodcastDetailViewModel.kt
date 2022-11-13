@@ -16,7 +16,7 @@ class PodcastDetailViewModel @Inject constructor() : ViewModel() {
         val text = context.getString(
             R.string.share_podcast_content,
             episode.titleOriginal,
-            episode.listennotesURL
+            episode.listenNotesURL
         )
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND

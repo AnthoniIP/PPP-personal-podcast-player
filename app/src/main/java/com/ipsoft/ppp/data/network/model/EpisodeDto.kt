@@ -15,7 +15,7 @@ data class EpisodeDto(
     @SerializedName("title_original")
     val titleOriginal: String,
     @SerializedName("listennotes_url")
-    val listennotesURL: String,
+    val listenNotesURL: String,
     @SerializedName("audio_length_sec")
     val audioLengthSec: Long,
     @SerializedName("explicit_content")
@@ -33,7 +33,7 @@ data class EpisodeDto(
         thumbnail,
         pubDateMS,
         titleOriginal,
-        listennotesURL,
+        listenNotesURL,
         audioLengthSec,
         explicitContent,
         descriptionOriginal

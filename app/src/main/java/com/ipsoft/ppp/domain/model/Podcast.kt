@@ -5,6 +5,6 @@ data class Podcast(
     val image: String,
     val thumbnail: String,
     val titleOriginal: String,
-    val listennotesURL: String,
+    val listenNotesURL: String,
     val publisherOriginal: String
 )

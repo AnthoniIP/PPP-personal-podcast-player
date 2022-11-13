@@ -1,7 +1,6 @@
 package com.ipsoft.ppp.data.datastore
 
 import android.content.Context
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -10,24 +9,21 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.gson.Gson
 import com.ipsoft.ppp.domain.model.PodcastSearch
+import java.time.Instant
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import java.time.Instant
+import timber.log.Timber
 
 class PodcastDataStore(
-    private val context: Context
+    private val context: Context,
 ) {
     private val lastAPIFetchMillis = longPreferencesKey("last_api_fetch_millis")
     private val podcastSearchResult = stringPreferencesKey("podcast_search_result")
 
-    companion object {
-        private const val TAG = "PodcastDataStore"
-    }
-
     suspend fun storePodcastSearchResult(data: PodcastSearch) {
         context.podcastDataStore.edit { preferences ->
             val jsonString = Gson().toJson(data)
-            Log.i(TAG, jsonString)
+            Timber.i(jsonString)
             preferences[lastAPIFetchMillis] = Instant.now().toEpochMilli()
             preferences[podcastSearchResult] = jsonString
         }

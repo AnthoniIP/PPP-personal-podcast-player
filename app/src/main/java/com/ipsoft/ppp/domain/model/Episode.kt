@@ -9,7 +9,7 @@ data class Episode(
     val thumbnail: String,
     val pubDateMS: Long,
     val titleOriginal: String,
-    val listennotesURL: String,
+    val listenNotesURL: String,
     val audioLengthSec: Long,
     val explicitContent: Boolean,
     val descriptionOriginal: String,

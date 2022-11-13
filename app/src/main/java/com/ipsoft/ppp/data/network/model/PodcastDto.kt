@@ -10,7 +10,7 @@ data class PodcastDto(
     @SerializedName("title_original")
     val titleOriginal: String,
     @SerializedName("listennotes_url")
-    val listennotesURL: String,
+    val listenNotesURL: String,
     @SerializedName("publisher_original")
     val publisherOriginal: String
 ) {
@@ -20,7 +20,7 @@ data class PodcastDto(
         image,
         thumbnail,
         titleOriginal,
-        listennotesURL,
+        listenNotesURL,
         publisherOriginal
     )
 }
