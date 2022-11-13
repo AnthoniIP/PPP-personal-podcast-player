@@ -3,10 +3,7 @@ package com.ipsoft.ppp.ui.common
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -18,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,11 +25,13 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.ipsoft.ppp.R
 
 @Composable
-fun SearchBar(state: MutableState<TextFieldValue>) {
+fun SearchBar(state: MutableState<TextFieldValue>, onSearch: (String) -> Unit) {
     TextField(
+        placeholder = { Text(text = stringResource(id = R.string.search_podcasts)) },
         value = state.value,
         onValueChange = { value ->
             state.value = value
+            onSearch(value.text)
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -83,5 +83,6 @@ fun SearchBar(state: MutableState<TextFieldValue>) {
 @Composable
 fun SearchViewPreview() {
     val textState = remember { mutableStateOf(TextFieldValue("")) }
-    SearchBar(textState)
+    SearchBar(textState) {
+    }
 }

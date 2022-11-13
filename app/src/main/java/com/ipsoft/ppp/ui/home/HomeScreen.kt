@@ -34,7 +34,9 @@ fun HomeScreen() {
 
     Surface {
         Column(modifier = Modifier.navigationBarsPadding()) {
-            SearchBar(state = textState)
+            SearchBar(state = textState) { query ->
+                podcastSearchViewModel.searchPodcasts(query)
+            }
             LazyColumn(state = scrollState) {
 
                 item {

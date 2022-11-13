@@ -10,6 +10,7 @@ import com.ipsoft.ppp.domain.model.PodcastSearch
 import com.ipsoft.ppp.domain.repository.PodcastRepository
 import com.ipsoft.ppp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +18,8 @@ import javax.inject.Inject
 class PodcastSearchViewModel @Inject constructor(
     private val repository: PodcastRepository,
 ) : ViewModel() {
+
+    private var searchJob: Job? = null
 
     var podcastSearch by mutableStateOf<Resource<PodcastSearch>>(Resource.Loading)
         private set
@@ -35,8 +38,9 @@ class PodcastSearchViewModel @Inject constructor(
         }
     }
 
-    fun searchPodcasts(query: String = "fiction") {
-        viewModelScope.launch {
+    fun searchPodcasts(query: String = "atualidades") {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
             podcastSearch = Resource.Loading
             val result = repository.searchPodcasts(query, "episode")
             result.fold(

@@ -13,6 +13,9 @@ import java.time.Instant
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
+
+const val SECONDS_TO_REFRESH = 5L
 
 class PodcastDataStore(
     private val context: Context,
@@ -41,7 +44,7 @@ class PodcastDataStore(
             val epochMillis = preferences[lastAPIFetchMillis]
 
             return@map if (epochMillis != null) {
-                val minDiffMillis = 36 * 60 * 60 * 1000L
+                val minDiffMillis = SECONDS_TO_REFRESH * 60 * 1000L
                 val now = Instant.now().toEpochMilli()
                 (now - minDiffMillis) > epochMillis
             } else {
