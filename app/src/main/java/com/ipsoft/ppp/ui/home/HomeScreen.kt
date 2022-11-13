@@ -1,19 +1,20 @@
 package com.ipsoft.ppp.ui.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
-import com.ipsoft.ppp.R
 import com.ipsoft.ppp.domain.model.Episode
 import com.ipsoft.ppp.ui.common.PreviewContent
 import com.ipsoft.ppp.ui.common.SearchBar
@@ -27,76 +28,66 @@ import com.ipsoft.ppp.util.Resource
 fun HomeScreen() {
     val scrollState = rememberLazyListState()
     val navController = Navigator.current
-    var lastSearch by remember { mutableStateOf("") }
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
     val podcastSearchViewModel = ViewModelProvider.podcastSearch
     val podcastSearch = podcastSearchViewModel.podcastSearch
 
     Surface {
-        LazyColumn(state = scrollState, modifier = Modifier.statusBarsPadding()) {
-            item {
-                SearchBar(
-                    searchText = lastSearch,
-                    placeholderText = stringResource(id = R.string.search_podcasts),
-                    onSearchTextChanged = {
-                        lastSearch = it
-                        podcastSearchViewModel.searchPodcasts(lastSearch)
-                    },
-                    onClearClick = {
-                        lastSearch = ""
-                        podcastSearchViewModel.searchPodcasts()
-                    },
-                )
-            }
-            item {
-                LargeTitle()
-            }
+        Column(modifier = Modifier.navigationBarsPadding()) {
+            SearchBar(state = textState)
+            LazyColumn(state = scrollState) {
 
-            when (podcastSearch) {
-                is Resource.Error -> {
-                    item {
-                        ErrorView(text = podcastSearch.failure.translate()) {
-                            podcastSearchViewModel.searchPodcasts()
+                item {
+                    LargeTitle()
+                }
+
+                when (podcastSearch) {
+                    is Resource.Error -> {
+                        item {
+                            ErrorView(text = podcastSearch.failure.translate()) {
+                                podcastSearchViewModel.searchPodcasts()
+                            }
                         }
                     }
-                }
 
-                Resource.Loading -> {
-                    item {
-                        LoadingPlaceholder()
+                    Resource.Loading -> {
+                        item {
+                            LoadingPlaceholder()
+                        }
                     }
-                }
 
-                is Resource.Success -> {
-                    item {
-                        StaggeredVerticalGrid(
-                            crossAxisCount = 2,
-                            spacing = 16.dp,
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                        ) {
-                            podcastSearch.data.results.forEach { podcast ->
-                                PodcastView(
-                                    podcast = podcast,
-                                    modifier = Modifier.padding(bottom = 16.dp),
-                                ) {
-                                    openPodcastDetail(navController, podcast)
+                    is Resource.Success -> {
+                        item {
+                            StaggeredVerticalGrid(
+                                crossAxisCount = 2,
+                                spacing = 16.dp,
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                            ) {
+                                podcastSearch.data.results.forEach { podcast ->
+                                    PodcastView(
+                                        podcast = podcast,
+                                        modifier = Modifier.padding(bottom = 16.dp),
+                                    ) {
+                                        openPodcastDetail(navController, podcast)
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            item {
-                Box(
-                    modifier = Modifier
-                        .navigationBarsPadding()
-                        .padding(bottom = 32.dp)
-                        .padding(
-                            bottom = if (
-                                ViewModelProvider.podcastPlayer.currentPlayingEpisode.value != null
-                            ) 64.dp else 0.dp,
-                        ),
-                )
+                item {
+                    Box(
+                        modifier = Modifier
+                            .navigationBarsPadding()
+                            .padding(bottom = 32.dp)
+                            .padding(
+                                bottom = if (
+                                    ViewModelProvider.podcastPlayer.currentPlayingEpisode.value != null
+                                ) 64.dp else 0.dp,
+                            ),
+                    )
+                }
             }
         }
     }
