@@ -3,28 +3,29 @@ package com.ipsoft.ppp.data.service
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
-import android.util.Log
 import androidx.media.MediaBrowserServiceCompat
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.ipsoft.ppp.constant.AppConstants
 import com.ipsoft.ppp.data.exoplayer.MediaPlaybackPreparer
+import com.ipsoft.ppp.data.exoplayer.MediaPlayerNotificationListener
 import com.ipsoft.ppp.data.exoplayer.MediaPlayerNotificationManager
 import com.ipsoft.ppp.data.exoplayer.MediaPlayerQueueNavigator
 import com.ipsoft.ppp.data.exoplayer.PodcastMediaSource
 import com.ipsoft.ppp.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MediaPlayerService : MediaBrowserServiceCompat() {
@@ -60,7 +61,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.i(TAG, "onCreate called")
+        Timber.tag(TAG).i("onCreate called")
         val activityPendingIntent = Intent(this, MainActivity::class.java)
             .apply {
                 action = AppConstants.ACTION_PODCAST_NOTIFICATION_CLICK
@@ -94,6 +95,7 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         mediaPlayerNotificationManager = MediaPlayerNotificationManager(
             this,
             mediaSession.sessionToken,
+            MediaPlayerNotificationListener(this),
         ) {
             currentDuration = exoPlayer.duration
         }
@@ -131,16 +133,14 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>,
     ) {
-        Timber.i("onLoadChildren called")
+        Timber.tag(TAG).i("onLoadChildren called")
         when (parentId) {
             AppConstants.MEDIA_ROOT_ID -> {
                 val resultsSent = mediaSource.whenReady { isInitialized ->
                     if (isInitialized) {
 
                         result.sendResult(mediaSource.asMediaItems())
-                        if (!isPlayerInitialized &&
-                            mediaSource.mediaMetadataEpisodes.isNotEmpty()
-                        ) {
+                        if (!isPlayerInitialized && mediaSource.mediaMetadataEpisodes.isNotEmpty()) {
                             isPlayerInitialized = true
                         }
                     } else {

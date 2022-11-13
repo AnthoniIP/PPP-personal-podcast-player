@@ -10,15 +10,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.ipsoft.ppp.R
+import com.google.android.exoplayer2.DefaultControlDispatcher
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
-import com.ipsoft.ppp.R
 import com.ipsoft.ppp.constant.AppConstants
 
 class MediaPlayerNotificationManager(
     private val context: Context,
     sessionToken: MediaSessionCompat.Token,
-    private val newSongCallback: () -> Unit,
+    notificationListener: PlayerNotificationManager.NotificationListener,
+    private val newSongCallback: () -> Unit
 ) {
 
     private val notificationManager: PlayerNotificationManager
@@ -26,7 +28,7 @@ class MediaPlayerNotificationManager(
     init {
         val mediaController = MediaControllerCompat(context, sessionToken)
         notificationManager =
-            createNotificationManger(mediaController, sessionToken)
+            createNotificationManger(mediaController, sessionToken, notificationListener)
     }
 
     fun showNotification(player: Player) {
@@ -36,23 +38,28 @@ class MediaPlayerNotificationManager(
     private fun createNotificationManger(
         mediaController: MediaControllerCompat,
         sessionToken: MediaSessionCompat.Token,
+        notificationListener: PlayerNotificationManager.NotificationListener
     ): PlayerNotificationManager {
-        return PlayerNotificationManager.Builder(
+        return PlayerNotificationManager.createWithNotificationChannel(
             context,
-            AppConstants.PLAYBACK_NOTIFICATION_ID,
             AppConstants.PLAYBACK_NOTIFICATION_CHANNEL_ID,
-            DescriptionAdapter(mediaController)
-        ).build().apply {
+            R.string.playback_notification_channel_name,
+            R.string.playback_notification_channel_description,
+            AppConstants.PLAYBACK_NOTIFICATION_ID,
+            DescriptionAdapter(mediaController),
+            notificationListener
+        ).apply {
             setSmallIcon(R.drawable.ic_microphone)
             setMediaSessionToken(sessionToken)
             setUseStopAction(true)
             setUseNextActionInCompactView(true)
             setUsePreviousActionInCompactView(true)
+            setControlDispatcher(DefaultControlDispatcher(0L, 0L))
         }
     }
 
     private inner class DescriptionAdapter(
-        private val mediaController: MediaControllerCompat,
+        private val mediaController: MediaControllerCompat
     ) : PlayerNotificationManager.MediaDescriptionAdapter {
         override fun createCurrentContentIntent(player: Player): PendingIntent? {
             return mediaController.sessionActivity
@@ -69,7 +76,7 @@ class MediaPlayerNotificationManager(
 
         override fun getCurrentLargeIcon(
             player: Player,
-            callback: PlayerNotificationManager.BitmapCallback,
+            callback: PlayerNotificationManager.BitmapCallback
         ): Bitmap? {
             Glide.with(context).asBitmap()
                 .load(mediaController.metadata.description.iconUri)
@@ -79,7 +86,7 @@ class MediaPlayerNotificationManager(
 
                     override fun onResourceReady(
                         resource: Bitmap,
-                        transition: Transition<in Bitmap>?,
+                        transition: Transition<in Bitmap>?
                     ) {
                         callback.onBitmap(resource)
                     }

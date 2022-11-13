@@ -22,17 +22,17 @@ class PodcastMediaSource @Inject constructor() {
     private var state: MusicSourceState =
         MusicSourceState.CREATED
         set(value) {
-                if (value == MusicSourceState.INITIALIZED || value == MusicSourceState.ERROR) {
-                    synchronized(onReadyListeners) {
-                        field = value
-                        onReadyListeners.forEach { listener ->
-                            listener(isReady)
-                        }
-                    }
-                } else {
+            if (value == MusicSourceState.INITIALIZED || value == MusicSourceState.ERROR) {
+                synchronized(onReadyListeners) {
                     field = value
+                    onReadyListeners.forEach { listener ->
+                        listener(isReady)
+                    }
                 }
+            } else {
+                field = value
             }
+        }
 
     private val isReady: Boolean
         get() = state == MusicSourceState.INITIALIZED
@@ -65,8 +65,8 @@ class PodcastMediaSource @Inject constructor() {
             val mediaItem = MediaItem.fromUri(
                 metadata.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI).toUri(),
             )
-            val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(mediaItem)
+            val mediaSource =
+                ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
             concatenatingMediaSource.addMediaSource(mediaSource)
         }
         return concatenatingMediaSource
