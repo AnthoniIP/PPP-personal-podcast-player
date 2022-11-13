@@ -1,4 +1,5 @@
 package com.ipsoft.ppp.util
 
+import java.util.Locale
 
-val languageCode = java.util.Locale.getDefault().displayLanguage ?: "Any language"
+val languageCode = Locale.getDefault().displayLanguage ?: "Any language"
