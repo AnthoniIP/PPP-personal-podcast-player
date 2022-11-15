@@ -9,11 +9,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.gson.Gson
 import com.ipsoft.ppp.domain.model.PodcastSearch
-import java.time.Instant
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
+import java.time.Instant
 
 const val SECONDS_TO_REFRESH = 5L
 
@@ -26,7 +24,6 @@ class PodcastDataStore(
     suspend fun storePodcastSearchResult(data: PodcastSearch) {
         context.podcastDataStore.edit { preferences ->
             val jsonString = Gson().toJson(data)
-            Timber.i(jsonString)
             preferences[lastAPIFetchMillis] = Instant.now().toEpochMilli()
             preferences[podcastSearchResult] = jsonString
         }

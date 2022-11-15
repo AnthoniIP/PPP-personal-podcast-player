@@ -3,7 +3,6 @@ package com.ipsoft.ppp.data.service
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
@@ -13,19 +12,14 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.ipsoft.ppp.constant.AppConstants
-import com.ipsoft.ppp.data.exoplayer.MediaPlaybackPreparer
-import com.ipsoft.ppp.data.exoplayer.MediaPlayerNotificationListener
-import com.ipsoft.ppp.data.exoplayer.MediaPlayerNotificationManager
-import com.ipsoft.ppp.data.exoplayer.MediaPlayerQueueNavigator
-import com.ipsoft.ppp.data.exoplayer.PodcastMediaSource
+import com.ipsoft.ppp.data.exoplayer.*
 import com.ipsoft.ppp.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MediaPlayerService : MediaBrowserServiceCompat() {
@@ -61,7 +55,6 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.tag(TAG).i("onCreate called")
         val activityPendingIntent = Intent(this, MainActivity::class.java)
             .apply {
                 action = AppConstants.ACTION_PODCAST_NOTIFICATION_CLICK
@@ -101,9 +94,8 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         }
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return Service.START_STICKY
-    }
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int =
+        Service.START_STICKY
 
     override fun onCustomAction(action: String, extras: Bundle?, result: Result<Bundle>) {
         super.onCustomAction(action, extras, result)
@@ -125,15 +117,12 @@ class MediaPlayerService : MediaBrowserServiceCompat() {
         clientPackageName: String,
         clientUid: Int,
         rootHints: Bundle?,
-    ): BrowserRoot {
-        return BrowserRoot(AppConstants.MEDIA_ROOT_ID, null)
-    }
+    ): BrowserRoot = BrowserRoot(AppConstants.MEDIA_ROOT_ID, null)
 
     override fun onLoadChildren(
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>,
     ) {
-        Timber.tag(TAG).i("onLoadChildren called")
         when (parentId) {
             AppConstants.MEDIA_ROOT_ID -> {
                 val resultsSent = mediaSource.whenReady { isInitialized ->
